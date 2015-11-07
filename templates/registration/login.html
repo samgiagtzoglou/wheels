@@ -19,8 +19,8 @@
 {% csrf_token %}
 <div class="container">
 <div class="jumbotron">
-<h1 align="center">WesDeliver</h1>
-<h2 align="center"> <small> A food delivery service for students, by students</h2>
+<h1 style="color:crimson" align="center">WesDeliver</h1>
+<h2  style="color:black" align="center"> <small> A food delivery service for students, by students</h2>
 <tr>
     <td>{{ form.username.label_tag }}</td>
     <td>{{ form.username }}</td>
@@ -36,5 +36,6 @@
 </form>
 {# Assumes you setup the password_reset view in your URLconf #}
 <p align="center"><a href="{% url 'password_reset' %}" >Lost password?</a></p>
+<p align="center"> Not registered? Register<a href "/url"> here</a>.</p>
 
 {% endblock %}
