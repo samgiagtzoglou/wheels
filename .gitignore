@@ -3,3 +3,5 @@ urls.pyc
 *.pyc
 settings.pyc
 .DS_Store
+
+*.pyc
