@@ -15,9 +15,12 @@
     {% endif %}
 {% endif %}
 
-<form method="post" action="{% url 'django.contrib.auth.views.login' %}">
+<form method="post" action="{% url 'django.contrib.auth.views.login' %}" align="center">
 {% csrf_token %}
-<table>
+<div class="container">
+<div class="jumbotron">
+<h1 align="center">WesDeliver</h1>
+<h2 align="center"> <small> A food delivery service for students, by students </h2>
 <tr>
     <td>{{ form.username.label_tag }}</td>
     <td>{{ form.username }}</td>
@@ -31,8 +34,7 @@
 <input type="submit" value="login" />
 <input type="hidden" name="next" value="{{ next }}" />
 </form>
-
 {# Assumes you setup the password_reset view in your URLconf #}
-<p><a href="{% url 'password_reset' %}">Lost password?</a></p>
+<p align="center"><a href="{% url 'password_reset' %}" >Lost password?</a></p>
 
 {% endblock %}
