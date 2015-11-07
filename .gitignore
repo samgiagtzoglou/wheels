@@ -1,0 +1,5 @@
+__init__.pyc
+urls.pyc
+*.pyc
+settings.pyc
+.DS_Store
