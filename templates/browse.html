@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<form method="post" action="{% url 'checkout' %}" align="center">
+{% csrf_token %}
+<div class="container">
+
+<h2 align="center">Restaurants</h2>
+<table>
+{% for restaurant in restaurants %}
+<div id='restaurant'>
+    <h3>{{restaurant.name}}</h3>
+    {% for item in items %}
+    {% if item.restaurant == restaurant %}
+    <h4>{{item.name}} : {{item.price}}</h4>
+    {% endif %}
+    {% endfor %}
+</div>
+{% endfor %}
+<h3 align="center">Cart</h3>
+{% if current_order.cart %}
+{% for item in current_order.cartlist %}
+<div id='item'>
+    <h4>{{item.name}} : {{item.price}}</h4>
+</div>
+{% endfor %}
+{% else %}
+<h4>No items in cart</h4>
+{% endif %}
+<tr>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td></td>
+    <td></td>
+</tr>
+</table>
+
+<input type="submit" value="Checkout" />
+</form>
+{# Assumes you setup the password_reset view in your URLconf #}
+<p align="center"><a href="{% url 'password_reset' %}" >Lost password?</a></p>
+
+{% endblock %}
