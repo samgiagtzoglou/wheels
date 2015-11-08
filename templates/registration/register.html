@@ -16,10 +16,11 @@
     <p>Please register to see this page.</p>
     {% endif %}
 {% endif %}
+<div id="register-container" class="container">
+<div class="jumbotron">
+<h1 style="color:crimson" align="center">Welcome to SeamWes</h1>
 
-<form method="post" action="{% url 'register' %}">
-{% csrf_token %}
-<table>
+<table align="center">
 <tr>
     <td>{{ form.username.label_tag }}</td>
     <td>{{ form.username }}</td>
@@ -32,9 +33,11 @@
     <td>{{ form.password2.label_tag }}</td>
     <td>{{ form.password2 }}</td>
 </tr>
+
 </table>
 
-<input type="submit" value="register" />
+<form align="center">
+<input type="submit" value="register"/>
 <input type="hidden" name="next" value="{{ next }}" />
 </form>
 

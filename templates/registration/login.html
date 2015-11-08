@@ -14,7 +14,8 @@
     <p>Please login to see this page.</p>
     {% endif %}
 {% endif %}
-
+<head>
+    <link rel"stylesheet" type="text/css" href="style.css"</head> 
 <form method="post" action="{% url 'login' %}" align="center">
 {% csrf_token %}
 <div class="container">
