@@ -48,4 +48,28 @@ input{
 	margin-left: 45%;
 	margin-top: 20px;
 }
-	
+.restaurantheader{
+	color: black;
+   -webkit-text-stroke-width: 1.25px;
+   -webkit-text-stroke-color: #f3f2f4;
+   letter-spacing: 18px;
+	font-family: helvetica;
+	font-size: 45px;
+	font-weight: lighter; 
+	padding-top: 20px;
+}
+.browse {
+	width:80%;
+	margin-right: 10%;
+	margin-left: 10%;
+	display: inline-block;
+}
+.cart{
+	display: inline-block;
+	width: 20%;
+}
+.restaurants{
+	width: 60%;
+		display: inline-block;
+
+}

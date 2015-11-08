@@ -1,47 +1,39 @@
-{% extends "base.html" %}
+    {% extends "base.html" %}
 
-{% block content %}
+    {% block content %}
 
-<form method="post" action="{% url 'checkout' %}" align="center">
-{% csrf_token %}
-<div class="container">
-
-<h2 align="center">Restaurants</h2>
-<table>
-{% for restaurant in restaurants %}
-<div id='restaurant'>
-    <h3>{{restaurant.name}}</h3>
-    {% for item in items %}
-    {% if item.restaurant == restaurant %}
-    <h4>{{item.name}} : {{item.price}} <a href="addToCart/{{item.id}}">Add</a></h4>
-    {% endif %}
-    {% endfor %}
-</div>
-{% endfor %}
-<h3 align="center">Cart</h3>
-{% for item in itemsInCart %} 
-<div id='item'>
-    <h4>{{item.name}} : ${{item.price}} ({{item.quantity}}) <a href="removeFromCart/{{item.id}}">Remove</a></h4>
-</div>
-{% empty %}
-<p>Nothing in cart</p>
-{% endfor %}
-<div id='total'>
-    <h3>Total: ${{total}}</h3>
-</div>
-
-<tr>
-    <td></td>
-    <td></td>
-</tr>
-<tr>
-    <td></td>
-    <td></td>
-</tr>
-</table>
-
-<input type="submit" value="Checkout" />
-</form>
+    {% csrf_token %}
+    <div class="browse">
+        <div class='restaurants'>
+            <h2 class="restaurantheader" align="center">restaurants</h2>
+            {% for restaurant in restaurants %}
+            <div class='restaurant'>
+                <h3>{{restaurant.name}}</h3>
+                {% for item in items %}
+                {% if item.restaurant == restaurant %}
+                <h4>{{item.name}} : {{item.price}} <a href="addToCart/{{item.id}}">Add</a></h4>
+                {% endif %}
+                {% endfor %}
+            </div>
+            {% endfor %}
+        </div>
+        <div class='cart'>
+            <h3 id="cartcolumn">Cart</h3>
+            {% for item in itemsInCart %} 
+            <div class='cartItem'>
+                <h4>{{item.name}} : ${{item.price}} ({{item.quantity}}) <a href="removeFromCart/{{item.id}}">Remove</a></h4>
+            </div>
+            {% empty %}
+            <p>Nothing in cart</p>
+            {% endfor %}
+            <div id='total'>
+                <h3>Total: ${{total}}</h3>
+            </div>
+            <form method="post" action="{% url 'checkout' %}" align="center">
+                <input type="submit" value="Checkout" />
+            </form>
+        </div>
+    </div>
 
 
-{% endblock %}
+    {% endblock %}
