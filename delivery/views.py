@@ -80,9 +80,54 @@ def browse(request):
 def dashboard(request):
     user = request.user
     carrier = request.user.carrier
-    current_orders = Order.objects.filter(carrier=carrier)
-    open_orders = Order.objects.filter(status="Pending Carrier")
+    current_orders = []
+    open_orders = []
+    for o in Order.objects.filter(status="Pending"):
+        cart = []
+        total = 0.0
+        for it in o.cartlist:
+            q = Quantities.objects.get(order=o,foodItem=it)
+            if q.quantity > 0:
+                cart.append({'name':it.name, 'price':it.price, 'quantity':q.quantity, 'id':it.id})
+                total = total + (it.price * q.quantity)
+        open_orders.append({'cart':cart, 'total':total, 'buyer': o.user.buyer, 'restaurant' : o.cartlist[0].restaurant, 'id':o.id})
+    for c in Order.objects.filter(carrier=carrier, status__in=["Claimed","Picked Up","Delivered"]):
+        cart = []
+        total = 0.0
+        for it in c.cartlist:
+            q = Quantities.objects.get(order=c,foodItem=it)
+            if q.quantity > 0:
+                cart.append({'name':it.name, 'price':it.price, 'quantity':q.quantity, 'id':it.id})
+                total = total + (it.price * q.quantity)
+        current_orders.append({'cart':cart, 'total':total, 'buyer': c.user.buyer, 'restaurant' : c.cartlist[0].restaurant, 'id':c.id, 'status':c.status})
     return render(request, 'dashboard.html', {"user":user, 'current_orders':current_orders, 'open_orders':open_orders})
+
+@login_required
+def claimOrder(request, order_id):
+    order = Order.objects.get(id=order_id)
+    if order.status=="Pending":
+        order.carrier = request.user.carrier
+        order.status = "Claimed"
+        order.save()
+    return redirect('dashboard')
+
+@login_required
+def markPickedUp(request, order_id):
+    order = Order.objects.get(id=order_id)
+    if order.status=="Claimed":
+        order.carrier = request.user.carrier
+        order.status = "Picked Up"
+        order.save()
+    return redirect('dashboard')
+
+@login_required
+def markDelivered(request, order_id):
+    order = Order.objects.get(id=order_id)
+    if order.status=="Picked Up":
+        order.carrier = request.user.carrier
+        order.status = "Delivered"
+        order.save()
+    return redirect('dashboard')
 
 @login_required
 def addItemToCart(request, item_id):
@@ -152,8 +197,38 @@ def profile(request):
     # b = request.user.buyer
     # buyer = {'Username': request.user.username, 'Full Name': b.name, 'address' : b.address, 'phone_number' : b.phone_number, 'credit_card' : '1234'}
 
-    
-
 @login_required
 def checkout(request):
-    pass #checkout 
+    buyer = request.user.buyer
+    order = request.user.buyer.current_order
+    cart = []
+    itemsInCart = order.cartlist
+    total = 0.0
+    for it in itemsInCart:
+        q = Quantities.objects.get(order=order,foodItem=it)
+        if q.quantity > 0:
+            cart.append({'name':it.name, 'price':it.price, 'quantity':q.quantity, 'id':it.id})
+            total = total + (it.price * q.quantity)
+
+    restaurant = itemsInCart[0].restaurant
+    return render(request, "checkout.html", {'order' : order, 'itemsInCart':cart})
+
+@login_required
+def confirm(request):
+    buyer = request.user.buyer
+    order = request.user.buyer.current_order
+    if order.status == "Uncomplete":
+        order.status = "Pending"
+        order.save()
+    cart = []
+    itemsInCart = order.cartlist
+    total = 0.0
+    for it in itemsInCart:
+        q = Quantities.objects.get(order=order,foodItem=it)
+        if q.quantity > 0:
+            cart.append({'name':it.name, 'price':it.price, 'quantity':q.quantity, 'id':it.id})
+            total = total + (it.price * q.quantity)
+
+    restaurant = itemsInCart[0].restaurant
+    return render(request, "confirm.html", {'order' : order, 'itemsInCart':cart})
+    
