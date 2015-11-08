@@ -105,10 +105,31 @@ color: black;
 	margin-left: 740px;
 	line-height: 210%;
 }
+#dashheader{
+	color: crimson;
+   -webkit-text-stroke-width: 1.25px;
+   -webkit-text-stroke-color: #f3f2f4;
+   letter-spacing: 12px;
+	font-family: helvetica, arial;
+	font-size: 35px;
+	font-weight: lighter; 
+	padding-top: 20px;
+}
+#currordersheader{
+	color: black;
+	font-family: helvetica, arial;
+	font-size: 20px;
+	font-weight: lighter;
+	letter-spacing: 3px;
+}
 
-
-
-
+#openordersheader{
+	color: black;
+	font-family: helvetica, arial;
+	font-size: 20px;
+	font-weight: lighter;
+	letter-spacing: 3px;
+}
 
 
 
