@@ -27,11 +27,11 @@
             <p>Nothing in cart</p>
             {% endfor %}
             <div id='total'>
-                <h3>Total: ${{total}}</h3>
+                <h3 align="right" id='totaltext'>Total: ${{total}}</h3>
             </div>
-            <form method="post" action="checkout" align="center">
+            <form method="post" action="checkout" align="right">
             {% csrf_token %}
-                <input type="submit" value="Checkout" />
+                <input class="btn btn-danger btn-sm" type="submit" value="checkout" />
             </form>
         </div>
         <p id="carrieradvertisement" align="center"> Interested in becoming a carrier? Learn more <a href="reg_carrier">here</a>.</p>
