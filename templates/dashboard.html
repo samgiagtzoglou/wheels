@@ -2,9 +2,9 @@
 
 {% block content %}
 
-<h2>Dashboard for {{user.name}}</h2>
-<h3>Current Orders</h3>
-<table>
+<h2 align="center" id="dashheader">Dashboard for {{user.name}}</h2>
+<h3 align="center" id="currordersheader">Current Orders</h3>
+<table align="center">
 <tr>
     <th>Orderer</th>
     <th>Restaurant</th>
@@ -30,8 +30,8 @@
     </tr>
 {% endfor %}
 </table>
-<h3>Open Orders</h3>
-<table>
+<h3 align="center" id="openordersheader">Open Orders</h3>
+<table align="center">
 <tr>
     <th>Orderer</th>
     <th>Restaurant</th>
@@ -49,5 +49,5 @@
 </table>
 <br>
 <br>
-<p> Hungry? Order something to eat <a href="browse">here</a>.</p>
+<p align="center"> Hungry? Order something to eat <a href="browse">here</a>.</p>
 {% endblock %}

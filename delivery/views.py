@@ -67,10 +67,10 @@ def browse(request):
             for it in itemsInCart:
                 q = Quantities.objects.get(order=current_order,foodItem=it)
                 if q.quantity > 0:
-                    cart.append({'name':it.name, 'price':it.price, 'quantity':q.quantity, 'id':it.id})
+                    cart.append({'name':it.name, 'price':it.price, 'quantity':q.quantity, 'id':it.id, 'restaurant':it.restaurant})
                     total = total + (it.price * q.quantity)
         if cart != []:
-            restaurants = [itemsInCart[0].restaurant]
+            restaurants = [cart[0]['restaurant']]
         else:
             restaurants = Restaurant.objects.all()
         items = FoodItem.objects.all()
@@ -211,7 +211,7 @@ def checkout(request):
             total = total + (it.price * q.quantity)
 
     restaurant = itemsInCart[0].restaurant
-    return render(request, "checkout.html", {'order' : order, 'itemsInCart':cart})
+    return render(request, "checkout.html", {'order' : order, 'itemsInCart':cart, 'total':total})
 
 @login_required
 def confirm(request):
@@ -230,4 +230,4 @@ def confirm(request):
             total = total + (it.price * q.quantity)
 
     restaurant = itemsInCart[0].restaurant
-    return render(request, "confirm.html", {'order' : order, 'itemsInCart':cart})
+    return render(request, "confirm.html", {'order' : order, 'total':total, 'itemsInCart':cart})
