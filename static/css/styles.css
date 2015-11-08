@@ -5,11 +5,11 @@ h1 {color: black;
 }
 .login-form label{
 	font-family: helvetica;
-	font-size:20px;
+	font-size:21px;
 	font-weight: lighter; 	
 }
 input{
 	font-family: helvetica;
 	font-size:14px;
-	font-weight: lighter;
+	font-weight:bold;
 }
