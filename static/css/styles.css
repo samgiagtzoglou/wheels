@@ -2,11 +2,15 @@ body {
 	background-color: #f3f2f4;
 }
 h1 {color: black;
+	font-family: helvetica;
+	font-size:72px;
+	font-weight: lighter; 
 }
 .login-form label{
 	font-family: helvetica;
 	font-size:21px;
-	font-weight: lighter; 	
+	font-weight: lighter;
+	padding-left: 410px;	
 }
 input{
 	font-family: helvetica;
