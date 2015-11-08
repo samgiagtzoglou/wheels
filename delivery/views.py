@@ -211,7 +211,7 @@ def checkout(request):
             total = total + (it.price * q.quantity)
 
     restaurant = itemsInCart[0].restaurant
-    return render(request, "checkout.html", {'order' : order, 'itemsInCart':cart})
+    return render(request, "checkout.html", {'order' : order, 'itemsInCart':cart, 'total':total})
 
 @login_required
 def confirm(request):
@@ -230,4 +230,4 @@ def confirm(request):
             total = total + (it.price * q.quantity)
 
     restaurant = itemsInCart[0].restaurant
-    return render(request, "confirm.html", {'order' : order, 'itemsInCart':cart})
+    return render(request, "confirm.html", {'order' : order, 'total':total, 'itemsInCart':cart})
