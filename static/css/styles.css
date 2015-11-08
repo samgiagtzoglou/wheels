@@ -31,3 +31,10 @@ input{
 	font-size:14px;
 	font-weight:bold;
 }
+.register-form label{
+	font-family: helvetica;
+	letter-spacing: 2px;
+	font-size:16px;
+	font-weight: lighter;
+	padding-left: 375px;	
+}
