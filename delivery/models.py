@@ -17,6 +17,7 @@ class FoodItem(models.Model):
 class Order(models.Model):
     user = models.ForeignKey(User)
     cart = models.ManyToManyField(FoodItem, through="Quantities")
+    status = models.CharField(max_length=30)
 
     @property
     def cartlist(self):
@@ -30,6 +31,7 @@ class Quantities(models.Model):
 class Buyer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=50, blank=True,null=True)
+    email = models.CharField(max_length=40, blank=True,null=True)
     address = models.CharField(max_length=50, blank=True,null=True)
     phone_number = models.CharField(max_length=20, blank=True,null=True)
     credit_card_number = models.CharField(max_length=16, blank=True,null=True)
@@ -40,4 +42,18 @@ class Buyer(models.Model):
     
     def __str__(self):
         return self.name if self.name is not None else self.user.username
-# Create your models here.
+
+class Carrier(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=50, blank=True,null=True)
+    phone_number = models.CharField(max_length=20, blank=True,null=True)
+    email = models.CharField(max_length=40, blank=True,null=True)
+    # credit_card_number = models.CharField(max_length=16, blank=True,null=True)
+    # credit_card_exp = models.CharField(max_length=5, blank=True,null=True)
+    # credit_card_sec = models.CharField(max_length=4, blank=True,null=True)
+
+    orders = models.ManyToManyField(Order)
+
+    
+    def __str__(self):
+        return self.name if self.name is not None else self.user.username
