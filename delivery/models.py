@@ -28,7 +28,7 @@ class Carrier(models.Model):
 class Order(models.Model):
     user = models.ForeignKey(User)
     cart = models.ManyToManyField(FoodItem, through="Quantities")
-    status = models.CharField(max_length=30, default="Uncomplete")
+    status = models.CharField(max_length=30, default="Incomplete")
     carrier = models.ForeignKey(Carrier, blank=True,null=True)
 
     @property

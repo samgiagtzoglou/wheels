@@ -217,7 +217,7 @@ def checkout(request):
 def confirm(request):
     buyer = request.user.buyer
     order = request.user.buyer.current_order
-    if order.status == "Uncomplete":
+    if order.status == "Incomplete":
         order.status = "Pending"
         order.save()
     cart = []
@@ -231,4 +231,3 @@ def confirm(request):
 
     restaurant = itemsInCart[0].restaurant
     return render(request, "confirm.html", {'order' : order, 'itemsInCart':cart})
-    
