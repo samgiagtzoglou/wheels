@@ -3,6 +3,7 @@
 {% block content %}
 <div class="container">
 <div class="defaults">
+    <h1 id="profileheader" align="center"> profile</h1>
     <table>
     <h5>Name: {{defaults.name}}</h5>
     <h5>Address: {{defaults.address}}</h5>
@@ -14,12 +15,12 @@
 
     </table>
 </div>
-<form action="/profile/" method="post">
+<form id='profileForm' align="center" action="/profile/" method="post">
     {% csrf_token %}
     <table>
     {{form}}
 </table>
-    <input type="submit" value="Save"/>
+    <input class="btn btn-danger btn-sm" type="submit" value="Save"/>
     {% if success %}
     <p>Saved!</p>
     {% endif %}

@@ -142,10 +142,29 @@ color: black;
 	margin-left: 30%;
 	line-height: 210%;
 }
+h5{
+	font-family: helvetica, arial;
+	letter-spacing: 2px;
+	font-size:16px;
+	font-weight: lighter;
+	padding-left: 404px;
+}
 
+#profileheader{
+	color: crimson;
+   letter-spacing: 12px;
+	font-family: helvetica, arial;
+	font-size: 45px;
+	font-weight: lighter; 
+	padding-top: 20px;
+}
 
-
-
+#profileForm{
+padding-top: 10px;
+margin-left: auto;
+margin-right: auto;
+width: 350px
+}
 
 
 
