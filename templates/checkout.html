@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+<div class="buyer">
+    <table>
+    <h5>Name: {{buyer.name}}</h5>
+    <h5>Address: {{buyer.address}}</h5>
+    <h5>Phone Number: {{buyer.phone_number}}</h5>
+    <h5>Credit Card Number: {{buyer.credit_card_number}}</h5>
+    <h5>Credit Card Expiration: {{buyer.credit_card_expiration}}</h5>
+    <h5>Credit Card Security: {{buyer.credit_card_security}}</h5>
+    </table>
+</div>
+<div class='checkoutCart'>
+    <h3 id="cartcolumn">Cart</h3>
+    {% for item in itemsInCart %} 
+    <div class='cartItem'>
+        <h4>{{item.name}} : ${{item.price}} ({{item.quantity}})</h4>
+    </div>
+    {% empty %}
+    <p>Nothing in cart</p>
+    {% endfor %}
+    <div id='total'>
+        <h3>Total: ${{total}}</h3>
+    </div>
+    <form method="post" action="confirm" align="center">
+            {% csrf_token %}
+        <input type="submit" value="Confirm" />
+    </form>
+</div>
+
+{% endblock %}
