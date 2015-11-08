@@ -2,26 +2,32 @@ body {
 	background-color: #f3f2f4;
 }
 h1 {color: black;
+   -webkit-text-stroke-width: 1.25px;
+   -webkit-text-stroke-color: #f3f2f4;
+   letter-spacing: 18px;
 	font-family: helvetica;
-	font-size:72px;
+	font-size:69px;
 	font-weight: lighter; 
 	padding-top: 20px;
 }
 h2 {color: black;
 	font-family: helvetica;
-	font-size:21px;
+	letter-spacing: 3px;
+	font-size:16px;
 	font-weight: lighter; 
-	padding-bottom: 30px;
-}
-
+	padding-bottom: 25px;
+	padding-right: 8px;
+}     
 .login-form label{
 	font-family: helvetica;
-	font-size:18px;
+	letter-spacing: 2px;
+	font-size:16px;
 	font-weight: lighter;
-	padding-left: 410px;	
+	padding-left: 404px;	
 }
 input{
 	font-family: helvetica;
+	letter-spacing: 1px;
 	font-size:14px;
 	font-weight:bold;
 }

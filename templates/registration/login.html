@@ -18,8 +18,9 @@
 <form class="login-form" method="post" action="{% url 'login' %}" align="justify">
 {% csrf_token %}
 <div class="container">
-<h1 style="color:crimson" align="center">SeamWes</h1>
-<h2 align="center"> A food delivery service for students, by students</h2>
+<div id="bar">
+<h1 style="color:crimson" align="center">seamwes</h1>
+<h2 align="center"> Food delivery for students, by students</h2>
 <tr>
     <td>{{ form.username.label_tag }}</td>
     <td>{{ form.username }}</td>
