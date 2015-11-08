@@ -8,7 +8,8 @@
 {% endif %}
 
 <form method="post" action="{% url 'reg_carrier' %}">
-<p>Carrier Login</p>
+<h1 style="color:crimson" align="center">carrier</h1>
+<p align="justify">Carriers have the freedom to work wherever and whenever they want. Need to take a study break from SciLi? Pick up some falafel from Mamoun's and pretend you're not procrastinating. On your way from Low Rise to Fountain? Grab a Monger from Whey Station and change a freshman's life forever. Your boredom can satisfy someone's hunger; your indifference can make a difference. The best part is, you're making money on each delivery: whoever makes the order pays for their own food along with a delivery fee that goes straight to you. Finally you can get paid for being generous. Want to become a carrier? Check the "agreed" box below and you'll start receiving orders.</p>
 {% csrf_token %}
 <table>
 {{ form }}
