@@ -9,14 +9,18 @@ class FoodItem(models.Model):
     name = models.CharField(max_length=30)
     price = models.FloatField()
 
-
 class Order(models.Model):
     user = models.ForeignKey(User)
-    cart = models.ManyToManyField(FoodItem)
+    cart = models.ManyToManyField(FoodItem, through="Quantities")
 
     @property
     def cartlist(self):
         return list(self.cart.all())
+
+class Quantities(models.Model):
+    order = models.ForeignKey(Order)
+    foodItem = models.ForeignKey(FoodItem)
+    quantity = models.IntegerField()
 
 class Buyer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)

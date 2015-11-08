@@ -13,21 +13,23 @@
     <h3>{{restaurant.name}}</h3>
     {% for item in items %}
     {% if item.restaurant == restaurant %}
-    <h4>{{item.name}} : {{item.price}}</h4>
+    <h4>{{item.name}} : {{item.price}} <a href="addToCart/{{item.id}}">Add</a></h4>
     {% endif %}
     {% endfor %}
 </div>
 {% endfor %}
 <h3 align="center">Cart</h3>
-{% if current_order.cart %}
-{% for item in current_order.cartlist %}
+{% for item in itemsInCart %} 
 <div id='item'>
-    <h4>{{item.name}} : {{item.price}}</h4>
+    <h4>{{item.name}} : ${{item.price}} ({{item.quantity}}) <a href="removeFromCart/{{item.id}}">Remove</a></h4>
 </div>
+{% empty %}
+<p>Nothing in cart</p>
 {% endfor %}
-{% else %}
-<h4>No items in cart</h4>
-{% endif %}
+<div id='total'>
+    <h3>Total: ${{total}}</h3>
+</div>
+
 <tr>
     <td></td>
     <td></td>

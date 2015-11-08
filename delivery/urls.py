@@ -7,5 +7,7 @@ urlpatterns = [
     url(r'^register', views.register, name='register'),
     url(r'^browse', views.browse, name='browse'),
     url(r'^checkout', views.checkout, name='checkout'),
+    url(r'^addToCart/([0-9]+)', views.addItemToCart, name='addToCart'),
+    url(r'^removeFromCart/([0-9]+)', views.removeItemFromCart, name='removeFromCart'),
     url('^', include('django.contrib.auth.urls'))
 ]
