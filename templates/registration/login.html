@@ -14,12 +14,10 @@
     <p>Please login to see this page.</p>
     {% endif %}
 {% endif %}
-<head>
-    <link rel"stylesheet" type="text/css" href="style.css"</head> 
-<form method="post" action="{% url 'login' %}" align="center">
+
+<form class="login-form" method="post" action="{% url 'login' %}" align="justify">
 {% csrf_token %}
 <div class="container">
-<div class="jumbotron">
 <h1 style="color:crimson" align="center">SeamWes</h1>
 <h2  style="color:black" align="center"> <small> A food delivery service for students, by students</h2>
 {% block content2 %}
@@ -28,13 +26,15 @@
     <td>{{ form.username.label_tag }}</td>
     <td>{{ form.username }}</td>
 </tr>
+<br>
+</br>
 <tr>
     <td>{{ form.password.label_tag }}</td>
     <td>{{ form.password }}</td>
 </tr>
 </table>
 
-<input type="submit" value="login" />
+<input class="btn btn-danger btn-xs" type="submit" value="login" />
 <input type="hidden" name="next" value="{{ next }}" />
 </form>
 {# Assumes you setup the password_reset view in your URLconf #}
