@@ -22,14 +22,14 @@ h2{
 	padding-right: 8px;
 }     
 .login-form label{
-	font-family: helvetica;
+	font-family: helvetica, arial;
 	letter-spacing: 2px;
 	font-size:16px;
 	font-weight: lighter;
 	padding-left: 404px;	
 }
 input{
-	font-family: helvetica;
+	font-family: helvetica,arial;
 	letter-spacing: 1px;
 	font-size:14px;
 	font-weight:bold;
@@ -53,7 +53,7 @@ input{
    -webkit-text-stroke-width: 1.25px;
    -webkit-text-stroke-color: #f3f2f4;
    letter-spacing: 18px;
-	font-family: helvetica;
+	font-family: helvetica, arial;
 	font-size: 45px;
 	font-weight: lighter; 
 	padding-top: 20px;
@@ -75,7 +75,7 @@ input{
 }
 #carrieradvertisement{
 color: black;
-	font-family: helvetica;
+	font-family: helvetica, arial;
 	font-weight: lighter;
 	letter-spacing: 3px;
 }
