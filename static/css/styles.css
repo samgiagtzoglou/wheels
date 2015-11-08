@@ -3,3 +3,13 @@ body {
 }
 h1 {color: black;
 }
+.login-form label{
+	font-family: helvetica;
+	font-size:20px;
+	font-weight: lighter; 	
+}
+input{
+	font-family: helvetica;
+	font-size:14px;
+	font-weight: lighter;
+}
