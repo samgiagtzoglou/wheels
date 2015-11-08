@@ -3,23 +3,24 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, logout, login, views
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
-from forms import BuyerCreateForm, CarrierCreateForm
+from forms import CarrierCreateForm, BuyerCreateForm
 from models import Buyer, Carrier, Restaurant, Order, FoodItem, Quantities
 from django.shortcuts import redirect
 
 def home(request):
     return views.login(request)
 
-def login(request):
-    user = User.objects.get(username = request.user.username)
-    if user.buyer:
-        x = views.login(request)
-        return "Carrier logged in"
-    return x
+# def login(request):
+#     x = views.login(request)
+#     print x
+#     # user = User.objects.get(username = request.user.username)
+#     if user.buyer:
+#         return "Carrier logged in"
+#     return x
 
 def register(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = BuyerCreateForm(request.POST)
         if form.is_valid():
             user = form.save()
             Buyer.objects.create(user=user, current_order=None, email=form.cleaned_data['email'])
@@ -29,17 +30,26 @@ def register(request):
         form = BuyerCreateForm()
         return render(request, 'registration/register.html',{'form':form})
 
+@login_required
 def register_carrier(request):
     if request.method == 'POST':
         form = CarrierCreateForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            Carrier.objects.create(user=user, name=form.cleaned_data['name'], phone_number=form.cleaned_data['phone_number'], email=form.cleaned_data['email'])
+        if form.is_valid() and form.cleaned_data['agreed']==True:
+            Carrier.objects.create(user=request.user)
             return render(request, "registration/register_complete.html")
         return render(request, 'registration/carrier_register.html',{'form':form})
     else:
         form = CarrierCreateForm()
         return render(request, 'registration/carrier_register.html',{'form':form})
+
+@login_required
+def handle(request):
+    if request.method == 'GET':
+        if request.user.carrier:
+            return redirect('dashboard')
+        else:
+            return redirect('browse')
+    return 'lol'
 
 @login_required
 def browse(request):
@@ -51,8 +61,6 @@ def browse(request):
             current_order = user.buyer.current_order
             itemsInCart = current_order.cartlist
             # quants = Quantities.objects.get(order=current_order)
-
-            
             for it in itemsInCart:
                 q = Quantities.objects.get(order=current_order,foodItem=it)
                 if q.quantity > 0:
@@ -64,6 +72,14 @@ def browse(request):
             restaurants = Restaurant.objects.all()
         items = FoodItem.objects.all()
         return render(request, 'browse.html', {'itemsInCart' : cart, 'restaurants' : restaurants, 'items' : items, 'total' : total})
+
+@login_required
+def dashboard(request):
+    user = request.user
+    carrier = request.user.carrier
+    current_orders = Order.objects.filter(carrier=carrier)
+    open_orders = Order.objects.filter(status="Pending Carrier")
+    return render(request, 'dashboard.html', {"user":user, 'current_orders':current_orders, 'open_orders':open_orders})
 
 @login_required
 def addItemToCart(request, item_id):

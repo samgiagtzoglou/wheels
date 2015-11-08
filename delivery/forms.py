@@ -25,18 +25,6 @@ class BuyerCreateForm(UserCreationForm):
             user.save()
         return user
 
-class CarrierCreateForm(UserCreationForm):
-    email = forms.EmailField(required=True)
-    name = forms.CharField(label='Full name',max_length=100)
-    phone_number = forms.CharField(label='Phone Number',max_length=100)
+class CarrierCreateForm(forms.Form):
+    agreed = forms.BooleanField(required=True)
 
-    class Meta:
-        model = User
-        fields = ("username", "email", "password1", "password2")
-
-    def save(self, commit=True):
-        user = super(CarrierCreateForm, self).save(commit=False)
-        user.email = self.cleaned_data["email"]
-        if commit:
-            user.save()
-        return user
