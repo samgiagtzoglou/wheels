@@ -182,7 +182,12 @@ def profile(request):
                 buyer.credit_card_sec = form.cleaned_data['credit_card_sec']
             buyer.save()
             #Process
-            return render(request, "profile.html", {"form":form, "success":True})
+            buyer = request.user.buyer
+            ccn = "**** **** **** " + buyer.credit_card_number[12:17] if buyer.credit_card_number else "-"
+            cce = buyer.credit_card_exp if buyer.credit_card_exp else "-"
+            ccs = "***" if buyer.credit_card_sec else ""
+            defaults = {"name":buyer.name,"address":buyer.address,"phone_number":buyer.phone_number,"credit_card_number":ccn, "credit_card_expiration" : cce, "credit_card_security":ccs}
+            return render(request, "profile.html", {"form":form, "success":True,"defaults":defaults})
         else: 
             return render(request, "profile.html", {"form":form, "error":True})
     else:
