@@ -27,21 +27,23 @@ def register(request):
 def browse(request):
     if request.method == 'GET':
         user = User.objects.get(username = request.user.username)
+        cart = []
+        total = 0.00
         if user.buyer.current_order != None:
             current_order = user.buyer.current_order
             itemsInCart = current_order.cartlist
-            quants = Quantities.objects.get(order=current_order)
+            # quants = Quantities.objects.get(order=current_order)
 
-            cart = []
-            total = 0.00
+            
             for it in itemsInCart:
                 q = Quantities.objects.get(order=current_order,foodItem=it)
                 if q.quantity > 0:
                     cart.append({'name':it.name, 'price':it.price, 'quantity':q.quantity, 'id':it.id})
                     total = total + (it.price * q.quantity)
+        if cart != []:
+            restaurants = [itemsInCart[0].restaurant]
         else:
-            cart = []
-        restaurants = Restaurant.objects.all()
+            restaurants = Restaurant.objects.all()
         items = FoodItem.objects.all()
         return render(request, 'browse.html', {'itemsInCart' : cart, 'restaurants' : restaurants, 'items' : items, 'total' : total})
 
@@ -57,9 +59,13 @@ def addItemToCart(request, item_id):
         request.user.buyer.current_order = o
         request.user.buyer.save()
     else:   
-        i = Quantities.objects.get(order=order,foodItem=item)
-        i.quantity = i.quantity + 1
-        i.save()
+        q = Quantities.objects.filter(order=order,foodItem=item).first()
+        if q != None:
+            q.quantity = q.quantity + 1
+            q.save()
+        else:
+            q = Quantities.objects.create(order=order,foodItem=item,quantity=1)
+            q.save()
     return redirect('browse')
 
 @login_required
@@ -73,6 +79,43 @@ def removeItemFromCart(request, item_id):
         i.quantity = i.quantity - 1
         i.save()
     return redirect('browse')
+
+@login_required
+def profile(request):
+    if request.method == 'POST':
+        form = ProfileForm(request.POST)
+        buyer = request.user.buyer
+        if form.is_valid():
+            if form.cleaned_data['name'] != "":
+                buyer.name = form.cleaned_data['name']
+            if form.cleaned_data['address'] != "":
+                buyer.address = form.cleaned_data['address']
+            if form.cleaned_data['phone_number'] != "":
+                buyer.phone_number = form.cleaned_data['phone_number']
+            if form.cleaned_data['credit_card_number'] != "":
+                buyer.credit_card_number = form.cleaned_data['credit_card_number']
+            if form.cleaned_data['credit_card_exp'] != "":
+                buyer.credit_card_exp = form.cleaned_data['credit_card_exp']
+            if form.cleaned_data['credit_card_sec'] != "":
+                buyer.credit_card_sec = form.cleaned_data['credit_card_sec']
+            buyer.save()
+            #Process
+            return render(request, "profile.html", {"form":form, "success":True})
+        else: 
+            return render(request, "profile.html", {"form":form, "error":True})
+    else:
+        form = ProfileForm()
+        buyer = request.user.buyer
+        ccn = "**** **** **** " + buyer.credit_card_number[12:17] if buyer.credit_card_number else "-"
+        cce = buyer.credit_card_exp if buyer.credit_card_exp else "-"
+        ccs = "***" if buyer.credit_card_sec else ""
+        defaults = {"name":buyer.name,"address":buyer.address,"phone_number":buyer.phone_number,"credit_card_number":ccn, "credit_card_expiration" : cce, "credit_card_security":ccs}
+        return render(request, "profile.html", {"form":form, "defaults":defaults})
+        # form.name = buyer.name
+    # b = request.user.buyer
+    # buyer = {'Username': request.user.username, 'Full Name': b.name, 'address' : b.address, 'phone_number' : b.phone_number, 'credit_card' : '1234'}
+
+    
 
 @login_required
 def checkout(request):

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+<div class="defaults">
+    <table>
+    <h5>Name: {{defaults.name}}</h5>
+    <h5>Address: {{defaults.address}}</h5>
+    <h5>Phone Number: {{defaults.phone_number}}</h5>
+    <h5>Credit Card Number: {{defaults.credit_card_number}}</h5>
+    <h5>Credit Card Expiration: {{defaults.credit_card_expiration}}</h5>
+    <h5>Credit Card Security: {{defaults.credit_card_security}}</h5>
+
+
+    </table>
+</div>
+<form action="/profile/" method="post">
+    {% csrf_token %}
+    <table>
+    {{form}}
+</table>
+    <input type="submit" value="Save"/>
+    {% if success %}
+    <p>Saved!</p>
+    {% endif %}
+
+    {% if error %}
+    <p>Error!</p>
+    {% endif %}
+    <!-- <h2>Name: {{buyer.name}}</h2>
+    <h3>Phone Number: {{buyer.phone_number}}</h3>
+    <h3>Address: {{buyer.address}}</h3>
+    <h3>Credit card: **** **** **** **** {{buyer.credit_card}}</h3> -->
+</form>
+</div>
+
+{% endblock %}
