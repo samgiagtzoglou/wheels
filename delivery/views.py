@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, logout, login, views
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
-from forms import CarrierCreateForm, BuyerCreateForm
+from forms import CarrierCreateForm, BuyerCreateForm, ProfileForm
 from models import Buyer, Carrier, Restaurant, Order, FoodItem, Quantities
 from django.shortcuts import redirect
 
