@@ -7,31 +7,32 @@
 {% endif %}
 
 <form class="register-form" method="post" action="{% url 'register' %}" align="justify">
-{% csrf_token %}
-<div class="container">
-<h1 style="color:crimson" align="center">welcome</h1>
-<h2 align="center"> Complete the form below to register</h2>
-<table>
-<tr>
-    <td>{{ form.username.label_tag }}</td>
-    <td>{{ form.username }}</td>
-</tr>
-<tr>
-    <td>{{ form.email.label_tag }}</td>
-    <td>{{ form.email }}</td>
-</tr>
-<tr>
-    <td>{{ form.password1.label_tag }}</td>
-    <td>{{ form.password1 }}</td>
-</tr>
-<tr>
-    <td><label>Confirm Password:</label></td>
-    <td>{{ form.password2 }}</td>
-</tr>
-</table>
+    {% csrf_token %}
+    <div class="container">
+        <h1 style="color:crimson" align="center">welcome</h1>
+        <h2 align="center"> Complete the form below to register</h2>
+        <table>
+            <tr>
+                <td>{{ form.username.label_tag }}</td>
+                <td>{{ form.username }}</td>
+            </tr>
+            <tr>
+                <td>{{ form.email.label_tag }}</td>
+                <td>{{ form.email }}</td>
+            </tr>
+            <tr>
+                <td>{{ form.password1.label_tag }}</td>
+                <td>{{ form.password1 }}</td>
+            </tr>
+            <tr>
+                <td><label>Confirm Password:</label></td>
+                <td>{{ form.password2 }}</td>
+            </tr>
+        </table>
 
-<input class="btn btn-danger btn-sm" type="submit" value="register"/>
-<input align="justify" type="hidden" name="next" value="{{ next }}" />
+        <input class="btn btn-danger btn-sm" id="registerbtn" align="center" type="submit" value="register"/>
+        <input align="justify" type="hidden" name="next" value="{{ next }}" />
+    </div>
 </form>
 
-{% endblock %}
+    {% endblock %}
