@@ -13,10 +13,10 @@ class FoodItem(models.Model):
     price = models.FloatField()
     def __str__(self):
         return self.name
-        
+
 class Carrier(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    
+    activatedCarrier = models.BooleanField(default=False)
     # credit_card_number = models.CharField(max_length=16, blank=True,null=True)
     # credit_card_exp = models.CharField(max_length=5, blank=True,null=True)
     # credit_card_sec = models.CharField(max_length=4, blank=True,null=True)
@@ -29,7 +29,7 @@ class Order(models.Model):
     user = models.ForeignKey(User)
     cart = models.ManyToManyField(FoodItem, through="Quantities")
     status = models.CharField(max_length=30, default="Uncomplete")
-    carrier = models.ForeignKey(Carrier)
+    carrier = models.ForeignKey(Carrier, blank=True,null=True)
 
     @property
     def cartlist(self):

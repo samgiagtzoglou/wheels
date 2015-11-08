@@ -24,10 +24,12 @@ def register(request):
         if form.is_valid():
             user = form.save()
             Buyer.objects.create(user=user, current_order=None, email=form.cleaned_data['email'])
+            Carrier.objects.create(user=user)
             return render(request, "registration/register_complete.html")
         return "Error"
     else:
         form = BuyerCreateForm()
+
         return render(request, 'registration/register.html',{'form':form})
 
 @login_required
@@ -35,7 +37,8 @@ def register_carrier(request):
     if request.method == 'POST':
         form = CarrierCreateForm(request.POST)
         if form.is_valid() and form.cleaned_data['agreed']==True:
-            Carrier.objects.create(user=request.user)
+            request.user.carrier.activatedCarrier = True
+            request.user.carrier.save()
             return render(request, "registration/register_complete.html")
         return render(request, 'registration/carrier_register.html',{'form':form})
     else:
@@ -45,7 +48,7 @@ def register_carrier(request):
 @login_required
 def handle(request):
     if request.method == 'GET':
-        if request.user.carrier:
+        if request.user.carrier.activatedCarrier:
             return redirect('dashboard')
         else:
             return redirect('browse')
