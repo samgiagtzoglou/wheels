@@ -9,14 +9,14 @@ h1 {color: black;
 }
 h2 {color: black;
 	font-family: helvetica;
-	font-size:36px;
+	font-size:21px;
 	font-weight: lighter; 
-	padding-bottom: 30px
+	padding-bottom: 30px;
 }
 
 .login-form label{
 	font-family: helvetica;
-	font-size:21px;
+	font-size:18px;
 	font-weight: lighter;
 	padding-left: 410px;	
 }
